@@ -74,6 +74,12 @@ void FVoxelMesherAsyncWork::DoWork()
 
 	if (PinnedRenderer->Settings.bRenderWorld)
 	{
+
+	#if CPUPROFILERTRACE_ENABLED
+		TRACE_CPUPROFILER_EVENT_SCOPE("Voxel plugin mesh generation")
+	#endif
+
+		
 		const auto MesherChunk = Mesher->CreateFullChunk();
 		if (MesherChunk.IsValid())
 		{
