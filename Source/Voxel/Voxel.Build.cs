@@ -64,7 +64,7 @@ public class Voxel : ModuleRules
                 "HTTP",
                 "Projects",
                 "Slate",
-                "SlateCore",
+                "SlateCore", "RunDirectionalMeshingDemo",
                 //"VHACD", // Not used, too slow
             }
         );

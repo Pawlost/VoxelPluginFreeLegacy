@@ -10,6 +10,7 @@
 
 #include "Async/Async.h"
 #include "Engine/World.h"
+#include "Log/VoxelMeshingProfilingLogger.h"
 
 static TAutoConsoleVariable<int32> CVarDoNotSkipEmptyChunks(
 	TEXT("voxel.mesher.DoNotSkipEmptyChunks"),
@@ -325,6 +326,11 @@ TVoxelSharedPtr<FVoxelChunkMesh> FVoxelMesher::CreateFullChunk()
 	}
 	else
 	{
+		
+#if CPUPROFILERTRACE_ENABLED
+		TRACE_CPUPROFILER_EVENT_SCOPE("Voxel plugin Mesh generation")
+#endif
+
 		const double StartTime = FPlatformTime::Seconds();
 		FVoxelMesherTimes Times;
 		
@@ -345,6 +351,15 @@ TVoxelSharedPtr<FVoxelChunkMesh> FVoxelMesher::CreateFullChunk()
 			}
 		}
 
+			
+#ifdef UE_BUILD_DEBUG
+		const auto Vertices = Chunk->GetSingleBuffers()->GetNumVertices();
+		if (Vertices > 0 && Settings.World.IsValid())
+		{
+			FVoxelMeshingProfilingLogger::LogGeneratedVertices(Settings.World->GetName(), Vertices);
+		}
+#endif
+		
 		const double EndTime = FPlatformTime::Seconds();
 		FVoxelMesherStats::Report(Settings.World, LOD, EndTime - StartTime, Times, false, false);
 	}
