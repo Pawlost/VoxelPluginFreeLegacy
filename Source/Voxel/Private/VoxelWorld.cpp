@@ -251,6 +251,10 @@ void AVoxelWorld::CreateWorld(FVoxelWorldCreateInfo Info)
 		return;
 	}
 #endif
+
+#if CPUPROFILERTRACE_ENABLED
+	TRACE_CPUPROFILER_EVENT_SCOPE("Voxel plugin Voxel Model generation")
+#endif
 	
 	PlayType = EVoxelPlayType::Game;
 	CreateWorldInternal(Info);

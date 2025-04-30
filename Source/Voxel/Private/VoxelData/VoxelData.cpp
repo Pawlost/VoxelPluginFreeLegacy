@@ -41,6 +41,11 @@ DEFINE_STAT(STAT_NumVoxelDataItems);
 
 inline auto CreateGenerator(const AVoxelWorld* World)
 {
+
+#if CPUPROFILERTRACE_ENABLED
+	TRACE_CPUPROFILER_EVENT_SCOPE("Voxel Plugin Chunk generation");
+#endif
+	
 	auto GeneratorInstance = World->Generator.GetInstance(true);
 	GeneratorInstance->Init(World->GetGeneratorInit());
 	return GeneratorInstance;

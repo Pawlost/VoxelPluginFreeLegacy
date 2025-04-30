@@ -356,6 +356,11 @@ TVoxelSharedPtr<FVoxelChunkMesh> FVoxelMesher::CreateFullChunk()
 		const auto Vertices = Chunk->GetSingleBuffers()->GetNumVertices();
 		if (Vertices > 0 && Settings.World.IsValid())
 		{
+					
+#if CPUPROFILERTRACE_ENABLED
+			TRACE_CPUPROFILER_EVENT_SCOPE("Mesh generated generation")
+	#endif
+
 			FVoxelMeshingProfilingLogger::LogGeneratedVertices(Settings.World->GetName(), Vertices);
 		}
 #endif
