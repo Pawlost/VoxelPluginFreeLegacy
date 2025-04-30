@@ -298,11 +298,21 @@ void FVoxelCubicMesher::CreateGeometryTemplate(FVoxelMesherTimes& Times, TArray<
 	{
 		Accelerator = MakeUnique<FVoxelConstDataAccelerator>(Data, GetBoundsToLock());
 	}
-
-	TVoxelQueryZone<FVoxelValue> QueryZone(GetBoundsToCheckIsEmptyOn(), FIntVector(CUBIC_CHUNK_SIZE_WITH_NEIGHBORS), LOD, CachedValues);
-	MESHER_TIME_VALUES(CUBIC_CHUNK_SIZE_WITH_NEIGHBORS * CUBIC_CHUNK_SIZE_WITH_NEIGHBORS * CUBIC_CHUNK_SIZE_WITH_NEIGHBORS, Data.Get<FVoxelValue>(QueryZone, LOD));
 	
 	{
+	#if CPUPROFILERTRACE_ENABLED
+		TRACE_CPUPROFILER_EVENT_SCOPE("VoxelPlugin Octree QueryZone generation")
+	#endif
+		
+		TVoxelQueryZone<FVoxelValue> QueryZone(GetBoundsToCheckIsEmptyOn(), FIntVector(CUBIC_CHUNK_SIZE_WITH_NEIGHBORS), LOD, CachedValues);
+		MESHER_TIME_VALUES(CUBIC_CHUNK_SIZE_WITH_NEIGHBORS * CUBIC_CHUNK_SIZE_WITH_NEIGHBORS * CUBIC_CHUNK_SIZE_WITH_NEIGHBORS, Data.Get<FVoxelValue>(QueryZone, LOD));
+	}
+	
+	{
+	#if CPUPROFILERTRACE_ENABLED
+		TRACE_CPUPROFILER_EVENT_SCOPE("VoxelPlugin Cubic Voxel Meshing generation")
+	#endif
+		
 		VOXEL_ASYNC_SCOPE_COUNTER("Iteration");
 		for (int32 X = 0; X < RENDER_CHUNK_SIZE; X++)
 		{

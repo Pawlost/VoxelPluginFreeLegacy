@@ -328,7 +328,7 @@ TVoxelSharedPtr<FVoxelChunkMesh> FVoxelMesher::CreateFullChunk()
 	{
 		
 #if CPUPROFILERTRACE_ENABLED
-		TRACE_CPUPROFILER_EVENT_SCOPE("Voxel plugin Mesh generation")
+		TRACE_CPUPROFILER_EVENT_SCOPE("VoxelPlugin Mesh generation")
 #endif
 
 		const double StartTime = FPlatformTime::Seconds();
@@ -336,7 +336,7 @@ TVoxelSharedPtr<FVoxelChunkMesh> FVoxelMesher::CreateFullChunk()
 		
 		Chunk = CreateFullChunkImpl(Times);
 		check(!LockInfo.IsValid());
-
+		
 		if (Chunk.IsValid())
 		{
 			{
@@ -352,15 +352,10 @@ TVoxelSharedPtr<FVoxelChunkMesh> FVoxelMesher::CreateFullChunk()
 		}
 
 			
-#ifdef UE_BUILD_DEBUG
+#if defined(UE_BUILD_DEBUG) || defined(UE_BUILD_DEVELOPMENT)
 		const auto Vertices = Chunk->GetSingleBuffers()->GetNumVertices();
-		if (Vertices > 0 && Settings.World.IsValid())
+		if (Vertices > 0  && Settings.World.IsValid())
 		{
-					
-#if CPUPROFILERTRACE_ENABLED
-			TRACE_CPUPROFILER_EVENT_SCOPE("Mesh generated generation")
-	#endif
-
 			FVoxelMeshingProfilingLogger::LogGeneratedVertices(Settings.World->GetName(), Vertices);
 		}
 #endif

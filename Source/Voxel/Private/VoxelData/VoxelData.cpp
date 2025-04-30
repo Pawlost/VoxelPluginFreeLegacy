@@ -43,7 +43,7 @@ inline auto CreateGenerator(const AVoxelWorld* World)
 {
 
 #if CPUPROFILERTRACE_ENABLED
-	TRACE_CPUPROFILER_EVENT_SCOPE("Voxel Plugin Chunk generation");
+	TRACE_CPUPROFILER_EVENT_SCOPE("Voxel Plugin Chunk Initialization generation");
 #endif
 	
 	auto GeneratorInstance = World->Generator.GetInstance(true);

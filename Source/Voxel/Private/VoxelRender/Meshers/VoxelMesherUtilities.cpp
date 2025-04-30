@@ -95,6 +95,11 @@ TVoxelSharedPtr<FVoxelChunkMesh> FVoxelMesherUtilities::CreateChunkFromVertices(
 	TArray<uint32>&& Indices, 
 	TArray<FVoxelMesherVertex>&& Vertices)
 {
+
+#if CPUPROFILERTRACE_ENABLED
+	TRACE_CPUPROFILER_EVENT_SCOPE("VoxelPlugin UE Buffer generation")
+#endif
+	
 	VOXEL_ASYNC_FUNCTION_COUNTER();
 
 	auto Chunk = MakeVoxelShared<FVoxelChunkMesh>();
