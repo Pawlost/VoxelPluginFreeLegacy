@@ -328,7 +328,7 @@ TVoxelSharedPtr<FVoxelChunkMesh> FVoxelMesher::CreateFullChunk()
 	{
 		
 #if CPUPROFILERTRACE_ENABLED
-		TRACE_CPUPROFILER_EVENT_SCOPE("VoxelPlugin Mesh generation")
+		TRACE_CPUPROFILER_EVENT_SCOPE("Total - VoxelPlugin Mesh generation")
 #endif
 
 		const double StartTime = FPlatformTime::Seconds();

@@ -301,7 +301,7 @@ void FVoxelCubicMesher::CreateGeometryTemplate(FVoxelMesherTimes& Times, TArray<
 	
 	{
 	#if CPUPROFILERTRACE_ENABLED
-		TRACE_CPUPROFILER_EVENT_SCOPE("VoxelPlugin Octree QueryZone generation")
+		TRACE_CPUPROFILER_EVENT_SCOPE("Octree - VoxelPlugin Octree QueryZone generation")
 	#endif
 		
 		TVoxelQueryZone<FVoxelValue> QueryZone(GetBoundsToCheckIsEmptyOn(), FIntVector(CUBIC_CHUNK_SIZE_WITH_NEIGHBORS), LOD, CachedValues);
@@ -310,7 +310,7 @@ void FVoxelCubicMesher::CreateGeometryTemplate(FVoxelMesherTimes& Times, TArray<
 	
 	{
 	#if CPUPROFILERTRACE_ENABLED
-		TRACE_CPUPROFILER_EVENT_SCOPE("VoxelPlugin Cubic Voxel Meshing generation")
+		TRACE_CPUPROFILER_EVENT_SCOPE("Meshing - VoxelPlugin Cubic Voxel Meshing generation")
 	#endif
 		
 		VOXEL_ASYNC_SCOPE_COUNTER("Iteration");

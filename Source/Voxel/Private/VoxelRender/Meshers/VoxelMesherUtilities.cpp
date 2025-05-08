@@ -97,7 +97,7 @@ TVoxelSharedPtr<FVoxelChunkMesh> FVoxelMesherUtilities::CreateChunkFromVertices(
 {
 
 #if CPUPROFILERTRACE_ENABLED
-	TRACE_CPUPROFILER_EVENT_SCOPE("VoxelPlugin UE Buffer generation")
+	TRACE_CPUPROFILER_EVENT_SCOPE("Buffer - UE VoxelPlugin generation")
 #endif
 	
 	VOXEL_ASYNC_FUNCTION_COUNTER();
